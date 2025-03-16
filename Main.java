@@ -1,22 +1,22 @@
 public class Main {
     public static void main(String[] args) {
-        Furniture chair = new Chair(1);
-        Furniture table = new Table(3);
-        Furniture sofa = new Sofa(5);
+        Item chair = new FurnitureItem("Chair", 1);
+        Item table = new FurnitureItem("Table", 3);
+        Item sofa = new FurnitureItem("Sofa", 5);
 
-        ShippingCostVisitor standardShipping = new StandardShippingVisitor();
-        ShippingCostVisitor expressShipping = new ExpressShippingVisitor();
+        CostCalculator standardCost = new StandardCost();
+        CostCalculator expressCost = new ExpressCost();
 
-        Furniture[] furnitureItems = {chair, table, sofa};
+        Item[] items = {chair, table, sofa};
 
         System.out.println("Standard Shipping Costs:");
-        for (Furniture item : furnitureItems) {
-            item.accept(standardShipping);
+        for (Item item : items) {
+            System.out.println(item.getType() + ": $" + item.accept(standardCost));
         }
 
         System.out.println("\nExpress Shipping Costs:");
-        for (Furniture item : furnitureItems) {
-            item.accept(expressShipping);
+        for (Item item : items) {
+            System.out.println(item.getType() + ": $" + item.accept(expressCost));
         }
     }
 }
